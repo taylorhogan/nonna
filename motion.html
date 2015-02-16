@@ -65,7 +65,8 @@ d3.csv("testmotion.csv", function(error, data) {
   });
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.motion; }));
+  y.domain([0,1]);
+  
 
   svg.append("path")
       .datum(data)

@@ -95,8 +95,32 @@ module top ()
 	}
 }
 
-mainThing ();
+module domeOutside ()
+{	
+	difference ()
+	{
+		sphere((insideDiameter + wallThickness)/2, $fn=100);
+		cylinder(h = (insideDiameter + wallThickness), r = (insideDiameter + wallThickness)/2, $fn = 100);
+	}
+}
+module domeInside ()
+{	
+	sphere((insideDiameter)/2, $fn=100);
+}
 
+module dome ()
+{
+	difference ()
+	{
+		domeOutside ();
+		domeInside();
+	}
+}
+//mainThing ();
+rotate ([0,180,0])
+{
+	dome ();
+}
 //top ();
 
 

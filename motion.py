@@ -41,7 +41,8 @@ try:
       # PIR is triggered
       print "  Motion detected!"
       t = datetime.today()
-      f = open("/home/pi/temp/motion.csv","a") 
+      f = open("/home/pi/temp/motion.csv","a")
+      f.write(t.strftime("%Y-%m-%d %H:%M:%S") + "," + "0" + "\n")
       f.write(t.strftime("%Y-%m-%d %H:%M:%S") + "," + "1" + "\n")
       f.close() 
       # Record previous state
@@ -54,6 +55,7 @@ try:
       print "  Ready"
       t = datetime.today()
       f = open("/home/pi/temp/motion.csv","a") 
+      f.write(t.strftime("%Y-%m-%d %H:%M:%S") + "," + "1" + "\n")
       f.write(t.strftime("%Y-%m-%d %H:%M:%S") + "," + "0" + "\n")
       f.close() 
       Previous_State=0
