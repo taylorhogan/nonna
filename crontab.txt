@@ -1,0 +1,4 @@
+*/2 * * * * /home/pi/temp/ftp.py
+0 2 * * * /sbin/shutdown -r +5
+@reboot  /home/pi/temp/temp.py
+@reboot  /home/pi/temp/motion.py
