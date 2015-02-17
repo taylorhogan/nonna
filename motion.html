@@ -37,10 +37,13 @@ var y = d3.scale.linear()
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom");
+    
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .orient("right");
+    
+   
 
 var area = d3.svg.area()
     .x(function(d) { return x(d.date); })
@@ -53,19 +56,22 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
-var lastTemp = 0;
-var lastTime=0;
+var lastMotion = 0;
+
 
 d3.csv("testmotion.csv", function(error, data) {
   data.forEach(function(d) {
     d.date = parseDate(d.date);
-    d.temp = +d.motion;
-    lastTemp = d.motion;
-    lastTime = d.date;
+    d.motion = +d.motion;
+    if (d.motion == 1)
+    {
+    lastMotion = d.date;
+    }
   });
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0,1]);
+  y.domain([0,10]);
+  
   
 
   svg.append("path")
@@ -80,12 +86,12 @@ d3.csv("testmotion.csv", function(error, data) {
 
   svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis)
     .append("text")
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "start")
-      .text(""+ lastTime + " " + lastTemp);
+      .text("Last Motion"+ lastMotion);
+      
 });
 
 </script>
