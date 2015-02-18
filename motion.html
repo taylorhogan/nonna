@@ -59,7 +59,7 @@ var svg = d3.select("body").append("svg")
 var lastMotion = 0;
 
 
-d3.csv("testmotion.csv", function(error, data) {
+d3.csv("motion.csv", function(error, data) {
   data.forEach(function(d) {
     d.date = parseDate(d.date);
     d.motion = +d.motion;
