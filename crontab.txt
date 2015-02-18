@@ -6,5 +6,5 @@
 @reboot /home/pi/temp/temp.py
 @reboot /home/pi/temp/motion.py
 @reboot /home/pi/temp/network.sh
-0 */1 * * * * /home/pi/nonna/pull-new.sh
+0 */1 * * * /home/pi/nonna/pull-new.sh
 
