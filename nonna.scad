@@ -10,7 +10,7 @@ lensDiameter = 23;
 lensZ = 46;
 lensBore = 10;
 cordHoleZ = 30;
-cordHoldDiameter = 10;
+cordHoldDiameter = 16;
 cordHoleLength = 20;
 airVentR = 2;
 domeInset = 10;
@@ -20,9 +20,7 @@ module holeCutOut ()
 	translate ([-insideDiameter/2-lensBore,0,cordHoleZ])
 	rotate ([0,90,0])	
 	{
-		cylinder(h = 30, r = (cordHoldDiameter)/2, $fn = 100);
-		translate ([0,-cordHoldDiameter/2,0])
-		cube (size = [cordHoleLength, cordHoldDiameter, 30]);
+		cylinder(h = 30, r = (cordHoldDiameter)/2, $fn = 100);		
 	}
 }
 
@@ -132,37 +130,51 @@ module domeShell ()
 	}
 	
 }
-module airVents ()
+module airVents (y, angle)
 {
-		translate ([0,0,-20])
-		rotate ([90,0,0])
-		for (i = [0 : 45 : 360] )
-		{	 
-					rotate (i, [0,1,0])
-					{
-				  	cylinder (100, r= airVentR,  $fn = 16);
-					}
+	translate ([0,0, y])
+	rotate ([90,0,0])
+	for (i = [0 : angle : 360] )
+	{	 
+		rotate (i, [0,1,0])
+		{
+			 cylinder (100, r= airVentR,  $fn = 16);
 		}
+	}
 
 }
 
 
-//mainThing ();
+module bottom ()
+{
+	difference ()
+	{
+		mainThing ();
+		airVents(10, 20);
+	}
+}
+
 module dome()
 {
-	rotate ([0, 180, 0])	`!
-aq1`1																																										3wwwwwwww	`3333333333CDE3HN M'M'
+	rotate ([0, 180, 0])
+
 	difference ()
 	{
 		domeShell ();
-		airVents();
+		airVents(-20, 45);
+
 	}
 }
 //domeFitting();
 
-dome();
+//dome();
 
 //top ();
+
+bottom();
+//translate ([0,0,botHeight])
+//dome();
+//bottom();
 
 
 
