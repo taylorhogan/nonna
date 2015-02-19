@@ -169,12 +169,14 @@ module dome()
 
 //dome();
 
-//top ();
+//
 
 bottom();
-//translate ([0,0,botHeight])
-//dome();
-//bottom();
+//rotate ([180,0,0])
+translate ([0,0,110])
+dome();
+//top ();
+bottom();
 
 
 
