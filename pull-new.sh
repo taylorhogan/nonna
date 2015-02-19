@@ -11,9 +11,6 @@ chmod +x pull-new.sh
 #install the new crontab
 crontab crontab.txt
 
-#this should come next
-#again
-
 
 
 
