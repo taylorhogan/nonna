@@ -5,6 +5,8 @@ git pull
 
 #install the new crontab
 crontab crontab.txt
+#this should come next
+
 
 
 
