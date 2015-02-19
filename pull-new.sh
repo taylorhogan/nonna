@@ -2,7 +2,7 @@
 # git clone https://github.com/taylorhogan/nonna nonna
 # get the latest from git
 
-rm pull-new.sh
+git checkout pull-new.sh
 
 git pull
 
