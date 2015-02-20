@@ -19,3 +19,4 @@ ftp.storbinary ('STOR ' + 'motion.csv', file)
 ftp.quit() 
 
 file.close() 
+
