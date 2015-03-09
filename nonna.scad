@@ -1,8 +1,15 @@
-botHeight = 110;
+CAP_HEIGHT_BASE = 30;
+CAP_INSET_HEIGHT = 5;
+CAP_HEIGHT = CAP_HEIGHT_BASE + CAP_INSET_HEIGHT;
 
-topHeightBase = 30;
-topInsideHeight = 5;
+MID_HEIGHT = 110;
+
+
+
 tempProbeDiameter = 6.3;
+TEMP_HUMID_X = 10;
+TEMP_HUMID_Y = 20;
+
 smidge = 1;
 insideDiameter = 70;
 wallThickness = 3;
@@ -14,6 +21,11 @@ cordHoldDiameter = 16;
 cordHoleLength = 20;
 airVentR = 2;
 domeInset = 10;
+
+BOTTOM_EXTENSION = 10;
+DISPLAY_SEP = 10;
+
+
 
 module holeCutOut ()
 {
@@ -35,11 +47,24 @@ module lensCutOut ()
 
 module mainShell ()
 {
+	bottomExtension();
+	translate ([0,0,BOTTOM_EXTENSION])
 	difference ()
 	{
-		cylinder(h = botHeight, r = (insideDiameter + wallThickness)/2, $fn = 100);
+		cylinder(h = MID_HEIGHT, r = (insideDiameter + wallThickness)/2, $fn = 100);
 		translate ([0,0,wallThickness])
-		cylinder(h = botHeight, r = (insideDiameter)/2, $fn = 100);		
+		cylinder(h = MID_HEIGHT, r = (insideDiameter)/2, $fn = 100);		
+	}
+	
+}
+
+module bottomExtension ()
+{
+	difference ()
+	{
+		cylinder(h = BOTTOM_EXTENSION, r = (insideDiameter + wallThickness)/2, $fn = 100);
+		translate ([0,0,-wallThickness])
+		cylinder(h = BOTTOM_EXTENSION+(wallThickness *3), r = (insideDiameter)/2, $fn = 100);				
 	}
 }
 
@@ -60,9 +85,9 @@ module mainThing()
 
 module topOutside ()
 {
-	cylinder(h = topHeightBase, r = (insideDiameter + wallThickness)/2, $fn = 100);
-	translate ([0,0,topHeightBase])
-	cylinder(h = topInsideHeight, r = (insideDiameter)/2, $fn = 100);	
+	cylinder(h = CAP_HEIGHT_BASE, r = (insideDiameter + wallThickness)/2, $fn = 100);
+	translate ([0,0,CAP_HEIGHT_BASE])
+	cylinder(h = CAP_INSET_HEIGHT, r = (insideDiameter)/2, $fn = 100);	
 }
 
 module tempCutOut ()
@@ -74,7 +99,7 @@ module tempCutOut ()
 module topBore ()
 {
 	translate ([0,0,wallThickness])
-	cylinder(h = topInsideHeight + topHeightBase + smidge , r = (insideDiameter - wallThickness)/2, $fn = 100);
+	cylinder(h = CAP_INSET_HEIGHT + CAP_HEIGHT_BASE + smidge , r = (insideDiameter - wallThickness)/2, $fn = 100);
 }
 
 module topShape ()
@@ -91,7 +116,7 @@ module top ()
 	difference ()
 	{
 		topShape ();
-		tempCutOut ();
+		airVents(10, 20);
 	}
 }
 
@@ -145,12 +170,12 @@ module airVents (y, angle)
 }
 
 
-module bottom ()
+module mid ()
 {
 	difference ()
 	{
 		mainThing ();
-		airVents(10, 20);
+		airVents(BOTTOM_EXTENSION + 10, 20);
 	}
 }
 
@@ -165,19 +190,24 @@ module dome()
 
 	}
 }
-//domeFitting();
 
-//dome();
+module bottom ()
+{
+	top();
+}
 
-//
+/*
+bottom ();
 
-bottom();
-//rotate ([180,0,0])
-translate ([0,0,110])
-dome();
-//top ();
-bottom();
+translate ([0,0,CAP_HEIGHT+DISPLAY_SEP])
 
-
-
+*/
+mid();
+/*
+translate ([0,0,BOTTOM_EXTENSION+CAP_HEIGHT+MID_HEIGHT+DISPLAY_SEP*8])
+{
+	rotate ([180,0,0])
+	top ();
+}
+*/
 
